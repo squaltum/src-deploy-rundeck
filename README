@@ -1,0 +1,29 @@
+How to deploy?
+
+For Rundeck SERVER
+1. ssh to server that plan to run rundeck as root user
+2. cd /opt/
+3. run "git clone https://github.com/squaltum/src-deploy-rundeck.git"
+4. cd src-deploy-rundeck/
+5. Edit VARS file at "RUNDECKURL"
+6. run "sh 0-script-prepare-docker.sh"
+7. run "sh 1-script-rundeck.sh"
+
+Step to do in Rundeck UI
+1. Create Project Name "Docker-Apps"
+2. Go to Project "Docker-Apps" and Create Key storage as privatekey from "files/rundeck/private.key" as name "keys/project/Docker-Apps/priv.key" 
+3. ssh to Rundeck Server
+4. cd /opt/src-deploy-rundeck/
+5. Add node to rundeck example NodeName: docker01, NodeIP: 111.222.233.1 run example below
+    - sh 2-add-node-rundeck.sh docker01 111.222.233.1 
+6. Back to Rundeck UI -> go to Project -> Edit Nodes -> Add a new Node Source -> Directory -> "/home/rundeck/projects/Project1/etc/"
+7. Import 3 jobs from files/rundeck/*.xml
+8. Edit Nodes of each jobs
+9. Edit workflow of Job "Create new app" at IP and expose URL
+
+If Add another nodes
+1. Complete Docker Server step
+2. ssh to Rundeck Server
+3. cd /opt/src-deploy-rundeck/
+4. Add node to rundeck example NodeName: docker01, NodeIP: 111.222.233.1 run example below
+    - sh 2-add-node-rundeck.sh docker01 111.222.233.1
